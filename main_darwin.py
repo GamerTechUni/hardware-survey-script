@@ -9,7 +9,8 @@ MACHINE_ID = uuid.getnode()
 
 
 def grab_hardware_info():
-    output_file = f"output-{MACHINE_ID}.doc"
+    output_file = f"{os.path.expanduser('~/Downloads')}/output-{MACHINE_ID}.doc"
+    
     try:
         with open(output_file, 'w', encoding="utf-8") as f:
             print(MACHINE_ID, file=f)
