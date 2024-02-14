@@ -14,9 +14,15 @@ def grab_hardware_info():
         with open(output_file, 'w', encoding="utf-8") as f:
             print(MACHINE_ID, file=f)
             print(f"{platform.system()} \n", file=f)
+            si = subprocess.STARTUPINFO()
+            si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            # startupinfo.wShowWindow = subprocess.SW_HIDE
             x = subprocess.run(['systeminfo'], capture_output=True,
-                               check=True, text=True, shell=True)
+                               check=True, text=True, startupinfo=si)
             print(x.stdout, file=f)
+            y = subprocess.run(['wmic', 'path', 'win32_VideoController', 'get', 'name'], capture_output=True,
+                               check=True, text=True, startupinfo=si)
+            print(f"Graphics {y.stdout}", file=f)
             messagebox.showinfo(
                 message=f"The information has been collected successfully!\nFile has been saved to: {os.path.abspath(output_file)}", title="Success!")
     except subprocess.CalledProcessError:

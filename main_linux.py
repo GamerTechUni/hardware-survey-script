@@ -14,15 +14,15 @@ def grab_hardware_info():
         with open(output_file, 'w', encoding="utf-8") as f:
             print(MACHINE_ID, file=f)
             print(f"{platform.system()} \n", file=f)
-            x = subprocess.run(['inxi -Fx'], capture_output=True,
-                               check=True, text=True, shell=True)
+            x = subprocess.run(['inxi', '-Fx'], capture_output=True,
+                               check=True, text=True)
             print(x.stdout, file=f)
             messagebox.showinfo(
                 message=f"The information has been collected successfully!\nFile has been saved to: {os.path.abspath(output_file)}", title="Success!")
     except subprocess.CalledProcessError:
         print("That command wasn't found")
         messagebox.showerror(
-            message="Couldn't collect information", title="Failed to collect info")
+            message="Couldn't collect information\n Maybe the inxi script isn't installed. \n Check the README.md on Github:\n https://github.com/GamerTechUni/hardware-survey-script", title="Failed to collect info. ")
 
 
 if __name__ == "__main__":

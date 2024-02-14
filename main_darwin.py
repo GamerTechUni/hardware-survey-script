@@ -14,8 +14,8 @@ def grab_hardware_info():
         with open(output_file, 'w', encoding="utf-8") as f:
             print(MACHINE_ID, file=f)
             print(f"{platform.system()} \n", file=f)
-            x = subprocess.run(['system_profiler SPSoftwareDataType SPHardwareDataType'], capture_output=True,
-                               check=True, text=True, shell=True)
+            x = subprocess.run(['system_profiler', 'SPSoftwareDataType', 'SPHardwareDataType'], capture_output=True,
+                               check=True, text=True)
             print(x.stdout, file=f)
             messagebox.showinfo(
                 message=f"The information has been collected successfully!\nFile has been saved to: {os.path.abspath(output_file)}", title="Success!")
